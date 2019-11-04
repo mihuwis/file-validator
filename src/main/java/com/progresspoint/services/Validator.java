@@ -15,9 +15,10 @@ public class Validator {
 
     private SupportedFormatListCreator listCreator;
 
-    public Validator(String filePath, String supportedFormatsCsv) {
+    public Validator(String filePath, String supportedFormatsFilePath) {
         this.fileDao = new FileToCheckReader(filePath);
-        this.listCreator = new SupportedFormatListCreator(new SupportedFormatsDaoFromCSV(new File(supportedFormatsCsv)));
+        this.listCreator = new SupportedFormatListCreator(
+                new SupportedFormatsDaoFromCSV(new File(supportedFormatsFilePath)));
     }
 
     public String getFileExtension(){
@@ -38,7 +39,7 @@ public class Validator {
 
     private boolean areListsEquals(List<Integer> fileToCheck, List<Integer> supportedFormatsMagicNumbersList){
         long matchingMagicNumbers = IntStream
-                .rangeClosed(0, supportedFormatsMagicNumbersList.size()-1)
+                .range(0, supportedFormatsMagicNumbersList.size())
                 .filter(x -> fileToCheck.get(x).equals(supportedFormatsMagicNumbersList.get(x))).count();
         return matchingMagicNumbers == (long) supportedFormatsMagicNumbersList.size();
     }
