@@ -11,8 +11,8 @@ class ValidatorTest {
     @Test
     void getFileExtension_wrongExtnsionGiven_expectCorrectExtension() {
         // Given
-        validator = new Validator("src/main/resources/picFakePdf.pdf",
-                "src/main/resources/supported.csv");
+        validator = new Validator("src/main/resources/filesToValidate/picFakePdf.pdf",
+                "src/main/resources/supportedFormats.csv");
         // When
         String expectedExtension = "jpg";
         String resultExtension = validator.getFileExtension();
@@ -24,8 +24,8 @@ class ValidatorTest {
     @Test
     void getFileExtension_correctExtensionGiven_expectCorrectExtension() {
         // Given
-        validator = new Validator("src/main/resources/pic1.jpg",
-                "src/main/resources/supported.csv");
+        validator = new Validator("src/main/resources/filesToValidate/pic1.jpg",
+                "src/main/resources/supportedFormats.csv");
         // When
         String expectedExtension = "jpg";
         String resultExtension = validator.getFileExtension();
@@ -37,8 +37,8 @@ class ValidatorTest {
     @Test
     void getFileExtension_wrongFileFormat_expectException() {
         // Given
-        validator = new Validator("src/main/resources/pngDocument.png",
-                "src/main/resources/supported.csv");
+        validator = new Validator("src/main/resources/filesToValidate/pngDocument.png",
+                "src/main/resources/supportedFormats.csv");
         // Then
         assertThrows(RuntimeException.class, () -> validator.getFileExtension());
     }
