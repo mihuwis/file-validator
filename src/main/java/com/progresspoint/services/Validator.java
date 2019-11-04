@@ -11,18 +11,18 @@ import java.util.stream.IntStream;
 
 public class Validator {
 
-    private FileToCheckReader fileDao;
+    private FileToCheckReader fileToCheckReader;
 
     private SupportedFormatListCreator listCreator;
 
     public Validator(String filePath, String supportedFormatsFilePath) {
-        this.fileDao = new FileToCheckReader(filePath);
+        this.fileToCheckReader = new FileToCheckReader(filePath);
         this.listCreator = new SupportedFormatListCreator(
                 new SupportedFormatsDaoFromCSV(new File(supportedFormatsFilePath)));
     }
 
     public String getFileExtension(){
-        FileData fileToCheck = fileDao.getFileToCheck();
+        FileData fileToCheck = fileToCheckReader.getFileToCheck();
         List<FileData> fileDataList = listCreator.createListOfSupportedFiles();
 
         for(FileData fileData: fileDataList){
@@ -43,6 +43,7 @@ public class Validator {
                 .filter(x -> fileToCheck.get(x).equals(supportedFormatsMagicNumbersList.get(x))).count();
         return matchingMagicNumbers == (long) supportedFormatsMagicNumbersList.size();
     }
+
 
 
 }
